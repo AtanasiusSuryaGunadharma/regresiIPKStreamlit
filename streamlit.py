@@ -3,7 +3,6 @@ import pandas as pd
 import pickle
 import os
 
-# Mengatur style dengan CSS
 st.markdown("""
         <style>
         .main {
@@ -21,6 +20,13 @@ st.markdown("""
             background-color: #333333;
             border: 2px solid #ffffff;
             color: #ffffff;
+        }
+        .stSidebar {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .stSidebar h3, .stSidebar p, .stSidebar label, .stSidebar .header-text {
+            color: #ffffff; 
         }
         h1 {
             font-family: 'Courier New', monospace;
@@ -52,12 +58,13 @@ st.markdown("""
         <img src="https://media.tenor.com/oqJo9GcbfjYAAAAi/welcome-images-server.gif" alt="Welcome Image">
     </div>
     """, unsafe_allow_html=True)
-# Menambahkan header dengan warna dan font yang lebih menarik
+
 st.markdown("<h1 style='text-align: center; color: #4CAF50;'>Prediksi IPK</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #0073e6;'>Aplikasi ini berguna untuk memprediksi IPK berdasarkan nilai Matematika, Bahasa Inggris, dan Bahasa Indonesia</p>", unsafe_allow_html=True)
+st.markdown("""<p style='text-align: center; color: #0073e6;'>Aplikasi ini berguna untuk memprediksi IPK berdasarkan nilai Matematika,
+             Bahasa Inggris, dan Bahasa Indonesia</p>""", unsafe_allow_html=True)
 
 # Sidebar untuk input file
-st.sidebar.header("Upload File dan Input Nilai")
+st.sidebar.markdown("<h3 class='header-text'>Upload File dan Input Nilai</h3>", unsafe_allow_html=True)
 uploaded_file = st.sidebar.file_uploader("Upload file dataset_regresi_IPK.csv", type=["csv"])
 
 if uploaded_file is not None:
