@@ -3,56 +3,58 @@ import pandas as pd
 import pickle
 import os
 
+# Mengatur style dengan CSS
 st.markdown("""
-    <style>
-    .main {
-        background-color: #ffe6f0;
-    }
-    .stButton button {
-        background-color: #ff66b2;
-        color: white;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 18px;
-    }
-    .stTextInput, .stNumberInput input {
-        background-color: #ffe6f2;
-        border: 2px solid #ff3399;
-        color: #cc0066;
-    }
-    h1 {
-        font-family: 'Courier New', monospace;
-        color: #ff3399;
-    }
-    h3, p {
-        font-family: 'Arial', sans-serif;
-        color: #ff3399;
-    }
-    .uploadedFile {
-        font-family: 'Arial', sans-serif;
-        color: #660033;
-    }
-    .center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .center img {
-        width: 150px; 
-        height: 100px; 
-        object-fit: contain; 
-    }
-    </style>
-    """, unsafe_allow_html=True)
+        <style>
+        .main {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+        .stButton button {
+            background-color: #333333;
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+        .stTextInput, .stNumberInput input {
+            background-color: #333333;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+        }
+        h1 {
+            font-family: 'Courier New', monospace;
+            color: #ffffff;
+        }
+        h3, p {
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+        }
+        .uploadedFile {
+            font-family: 'Arial', sans-serif;
+            color: #cccccc;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .center img {
+            width: 150px; 
+            height: 100px; 
+            object-fit: contain; 
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
 st.markdown("""
     <div class="center">
         <img src="https://media.tenor.com/oqJo9GcbfjYAAAAi/welcome-images-server.gif" alt="Welcome Image">
     </div>
     """, unsafe_allow_html=True)
-
-st.markdown("<h1 style='text-align: center;'>Prediksi IPK</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Aplikasi ini berguna untuk memprediksi IPK berdasarkan nilai Matematika, Bahasa Inggris, dan Bahasa Indonesia</p>", unsafe_allow_html=True)
+# Menambahkan header dengan warna dan font yang lebih menarik
+st.markdown("<h1 style='text-align: center; color: #4CAF50;'>Prediksi IPK</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #0073e6;'>Aplikasi ini berguna untuk memprediksi IPK berdasarkan nilai Matematika, Bahasa Inggris, dan Bahasa Indonesia</p>", unsafe_allow_html=True)
 
 # Sidebar untuk input file
 st.sidebar.header("Upload File dan Input Nilai")
@@ -61,10 +63,10 @@ uploaded_file = st.sidebar.file_uploader("Upload file dataset_regresi_IPK.csv", 
 if uploaded_file is not None:
     # Read CSV file
     input_data = pd.read_csv(uploaded_file)
-    st.markdown("<h3>Data yang diupload:</h3>", unsafe_allow_html=True)
+    st.write("<h3 style='text-align: center; color: #0073e6;'>Data yang diupload:</h3>", unsafe_allow_html=True)
     st.dataframe(input_data)
     
-    model_path = 'RR_IPK_model.pkl'
+    model_path = os.path.join(model_directory, r'SVR_IPK_model.pkl')
 
     if os.path.exists(model_path):
         with open(model_path, 'rb') as f:
@@ -91,18 +93,18 @@ if uploaded_file is not None:
 
         # KKM
         st.sidebar.subheader("Masukkan KKM Nilai")
-        kkm_mtk1 = st.sidebar.number_input("KKM Nilai Matematika Semester 1.1", 0.0, 100.0)
-        kkm_mtk2 = st.sidebar.number_input("KKM Nilai Matematika Semester 1.2", 0.0, 100.0)
-        kkm_mtk3 = st.sidebar.number_input("KKM Nilai Matematika Semester 2.1", 0.0, 100.0)
-        kkm_mtk4 = st.sidebar.number_input("KKM Nilai Matematika Semester 2.2", 0.0, 100.0)
-        kkm_ing1 = st.sidebar.number_input("KKM Nilai Bahasa Inggris Semester 1.1", 0.0, 100.0)
-        kkm_ing2 = st.sidebar.number_input("KKM Nilai Bahasa Inggris Semester 1.2", 0.0, 100.0)
-        kkm_ing3 = st.sidebar.number_input("KKM Nilai Bahasa Inggris Semester 2.1", 0.0, 100.0)
-        kkm_ing4 = st.sidebar.number_input("KKM Nilai Bahasa Inggris Semester 2.2", 0.0, 100.0)
         kkm_ind1 = st.sidebar.number_input("KKM Nilai Bahasa Indonesia Semester 1.1", 0.0, 100.0)
         kkm_ind2 = st.sidebar.number_input("KKM Nilai Bahasa Indonesia Semester 1.2", 0.0, 100.0)
         kkm_ind3 = st.sidebar.number_input("KKM Nilai Bahasa Indonesia Semester 2.1", 0.0, 100.0)
         kkm_ind4 = st.sidebar.number_input("KKM Nilai Bahasa Indonesia Semester 2.2", 0.0, 100.0)
+        kkm_ing1 = st.sidebar.number_input("KKM Nilai Bahasa Inggris Semester 1.1", 0.0, 100.0)
+        kkm_ing2 = st.sidebar.number_input("KKM Nilai Bahasa Inggris Semester 1.2", 0.0, 100.0)
+        kkm_ing3 = st.sidebar.number_input("KKM Nilai Bahasa Inggris Semester 2.1", 0.0, 100.0)
+        kkm_ing4 = st.sidebar.number_input("KKM Nilai Bahasa Inggris Semester 2.2", 0.0, 100.0)
+        kkm_mtk1 = st.sidebar.number_input("KKM Nilai Matematika Semester 1.1", 0.0, 100.0)
+        kkm_mtk2 = st.sidebar.number_input("KKM Nilai Matematika Semester 1.2", 0.0, 100.0)
+        kkm_mtk3 = st.sidebar.number_input("KKM Nilai Matematika Semester 2.1", 0.0, 100.0)
+        kkm_mtk4 = st.sidebar.number_input("KKM Nilai Matematika Semester 2.2", 0.0, 100.0)
 
         input_data = [mtk1, mtk2, mtk3, mtk4, ing1, ing2, ing3, ing4, ind1, ind2, ind3, ind4,
                       kkm_mtk1, kkm_mtk2, kkm_mtk3, kkm_mtk4, kkm_ing1, kkm_ing2, kkm_ing3, kkm_ing4,
@@ -113,6 +115,6 @@ if uploaded_file is not None:
 
         if st.sidebar.button("Prediksi!"):
             rr_model_predict = rr_model.predict(input_data_selected)
-            st.markdown(f"<h3 style='text-align: center; color: #ff3399;'>Prediksi IPK adalah: {rr_model_predict[0]:.2f}</h3>", unsafe_allow_html=True)
+            st.markdown(f"<h3 style='text-align: center; color: #4CAF50;'>Prediksi IPK adalah: {rr_model_predict[0]:.2f}</h3>", unsafe_allow_html=True)
     else:
         st.error("Model tidak ditemukan, silakan cek file model di direktori.")
